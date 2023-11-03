@@ -1,0 +1,57 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - production
+  pull_request:
+    branches:
+      - production
+    types:
+      - closed
+  workflow_dispatch:
+    inputs:
+      increment_type:
+        type: choice
+        description: Version increment type
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+      version:
+        type: string
+        description: Specific release version (e.g., 1.2.3)
+
+jobs:
+  create_release:
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Extract release version from Pull Request title
+        id: extract_version_from_pr_title
+        if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
+        run: |
+          pr_title=${{ github.event.pull_request.title }}
+          if [[ $pr_title =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            version="${BASH_REMATCH}"
+            echo "version=${version}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine incremented release version
+        id: determine_incremented_release_version
+        if: ${{ !github.event.inputs.version }}
+        uses: reecetech/version-increment@2023.9.3
+        with:
+          scheme: semver
+          increment: ${{ github.event.inputs.increment_type }}
+
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          automatic_release_tag: ${{ github.event.inputs.version ||
+            steps.extract_version_from_pr_title.outputs.version ||
+            steps.determine_incremented_release_version.outputs.version }}
