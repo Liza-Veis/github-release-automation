@@ -36,13 +36,13 @@ jobs:
         shell: bash
         if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
         run: |
-          pr_title="${{ github.event.pull_request.title }}"
-          version="1.0.2"
-          if echo "$pr_title" | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+"; then
-            version="${BASH_REMATCH}"
-            echo "version=${version}" >> $GITHUB_OUTPUT
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          VERSION_REGEX="\d+\.\d+\.\d+"
+
+          if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
+            VERSION="${BASH_REMATCH[0]}"
+            echo "version=${VERSION}" >> $GITHUB_OUTPUT
           fi
-          echo "SELECTED_COLOR=${version}" >> "$GITHUB_OUTPUT"
 
       - name: Determine incremented release version
         id: determine-incremented-release-version
