@@ -62,4 +62,4 @@ jobs:
           generate_release_notes: true
 
       - name: Get color
-        run: echo "The selected color is ${{ steps.extract-version-from-pr-title.outputs.SELECTED_COLOR }}"
+        run: echo "The selected color is ${{ steps.extract-version-from-pr-title.outputs.version }}"
