@@ -20,6 +20,10 @@ on:
         type: string
         description: Specific release version (e.g., 1.2.3)
 
+concurrency:
+  group: create-release-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   create_release:
     runs-on: ubuntu-latest
