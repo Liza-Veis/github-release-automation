@@ -46,7 +46,7 @@ jobs:
 
       - name: Determine incremented release version
         id: determine_incremented_release_version
-        if: ${{ !github.event.inputs.version && !steps.extract_version_from_pr_title.outputs.version }}
+        if: ${{ !github.event.inputs.version }}
         uses: reecetech/version-increment@2023.9.3
         with:
           scheme: semver
@@ -54,6 +54,9 @@ jobs:
 
       - name: Create release
         uses: softprops/action-gh-release@v1
+        needs:
+          - extract_version_from_pr_title
+          - determine_incremented_release_version
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ github.event.inputs.version ||
