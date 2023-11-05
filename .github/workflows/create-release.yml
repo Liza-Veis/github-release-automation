@@ -40,6 +40,7 @@ jobs:
             version="${BASH_REMATCH}"
             echo "version=$version" >> $GITHUB_OUTPUT
           fi
+          echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
 
       - name: Determine incremented release version
         id: determine-incremented-release-version
@@ -57,3 +58,8 @@ jobs:
             steps.extract-version-from-pr-title.outputs.version ||
             steps.determine-incremented-release-version.outputs.version }}
           generate_release_notes: true
+
+      - name: Get color
+              env:
+                SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+              run: echo "The selected color is $SELECTED_COLOR"
