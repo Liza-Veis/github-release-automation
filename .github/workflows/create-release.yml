@@ -37,13 +37,10 @@ jobs:
         if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
-          VERSION_REGEX="(\d+\.\d+\.\d+)"
+          VERSION_REGEX="[0-9]+\.[0-9]+\.[0-9]+"
 
           if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
-            echo -e "Full capture string: ${BASH_REMATCH[0]}"
-            echo -e "Captured string element: ${BASH_REMATCH[1]}"
-
-            VERSION="${BASH_REMATCH[1]}"
+            VERSION="${BASH_REMATCH[0]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
           else
             echo "No version (x.y.z) found in the PR title."
