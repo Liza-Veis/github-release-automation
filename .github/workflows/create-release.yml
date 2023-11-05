@@ -1,9 +1,5 @@
 name: Create Release
 
-branding:
-  icon: "package"
-  color: "blue"
-
 on:
   pull_request:
     branches:
