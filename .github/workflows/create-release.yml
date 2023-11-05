@@ -39,15 +39,11 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           VERSION_REGEX="(\d+\.\d+\.\d+)"
 
-          MATCH_RESULT=$( [[ $PR_TITLE =~ $VERSION_REGEX ]]; echo $? )
+          if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
+            echo -e "Full capture string: ${BASH_REMATCH[0]}"
+            echo -e "Captured string element: ${BASH_REMATCH[1]}"
 
-          # Echo the result
-          echo "Match Result: $MATCH_RESULT"
-          echo "Match Result 2: ${BASH_REMATCH[0]}"
-          echo "Match Result 2: ${MATCH_RESULT[0]}"
-
-          if [[ MATCH_RESULT != 0 ]]; then
-            VERSION="${BASH_REMATCH[0]}"
+            VERSION="${BASH_REMATCH[1]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
           else
             echo "No version (x.y.z) found in the PR title."
