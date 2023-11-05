@@ -43,8 +43,10 @@ jobs:
 
           # Echo the result
           echo "Match Result: $MATCH_RESULT"
+          echo "Match Result 2: $BASH_REMATCH[0]"
+          echo "Match Result 2: $MATCH_RESULT[0]"
 
-          if [[ MATCH_RESULT -eq 0 ]]; then
+          if [[ MATCH_RESULT != 0 ]]; then
             VERSION="${BASH_REMATCH[0]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
           else
