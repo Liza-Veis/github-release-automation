@@ -42,9 +42,9 @@ jobs:
           if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
             VERSION="${BASH_REMATCH[0]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
-            echo "Release version: ${VERSION}"
+            echo "Release version found in Pull Request title: ${VERSION}"
           else
-            echo "No release version (x.y.z) found."
+            echo "No release version (x.y.z) found in Pull Request title."
           fi
 
       - name: Determine incremented release version
@@ -55,11 +55,28 @@ jobs:
           scheme: semver
           increment: ${{ github.event.inputs.increment_type }}
 
+      - name: Determine target release version
+        id: determine-target-release-version
+        run: |
+          VERSION="${{ github.event.inputs.version ||
+            steps.extract-version-from-pr-title.outputs.version ||
+            steps.determine-incremented-release-version.outputs.version }}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Target release version: ${VERSION}"
+
       - name: Create release
+        id: create-release
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.event.inputs.version ||
-            steps.extract-version-from-pr-title.outputs.version ||
-            steps.determine-incremented-release-version.outputs.version }}
+          tag_name: ${{ determine-target-release-version.outputs.version }}
           generate_release_notes: true
+
+      - name: Add job summary
+        run: |
+          RELEASE_VERSION="${{ steps.determine-target-release-version.outputs.version }}"
+          RELEASE_URL="${{ steps.create-release.outputs.url }}"
+
+          echo "### Release Created :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "Version: ${RELEASE_VERSION}" >> $GITHUB_STEP_SUMMARY
+          echo "[View Release](${RELEASE_URL})" >> $GITHUB_STEP_SUMMARY
