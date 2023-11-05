@@ -35,8 +35,8 @@ jobs:
         id: extract_version_from_pr_title
         if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
         run: |
-          pr_title=${{ github.event.pull_request.title }}
-          if [[ $pr_title =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+          pr_title="${{ github.event.pull_request.title }}"
+          if echo "$pr_title" | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+"; then
             version="${BASH_REMATCH}"
             echo "version=${version}" >> $GITHUB_OUTPUT
           fi
