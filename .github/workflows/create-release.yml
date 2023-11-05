@@ -62,5 +62,5 @@ jobs:
 
       - name: Get color
         env:
-          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+          SELECTED_COLOR: ${{ steps.extract-version-from-pr-title.outputs.SELECTED_COLOR }}
         run: echo "The selected color is $SELECTED_COLOR"
