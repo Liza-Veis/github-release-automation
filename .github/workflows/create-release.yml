@@ -69,7 +69,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ determine-target-release-version.outputs.version }}
+          tag_name: ${{ steps.determine-target-release-version.outputs.version }}
           generate_release_notes: true
 
       - name: Add job summary
