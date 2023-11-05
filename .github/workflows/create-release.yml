@@ -43,7 +43,7 @@ jobs:
 
       - name: Determine incremented release version
         id: determine_incremented_release_version
-        if: ${{ !github.event.inputs.version }}
+        if: ${{ !github.event.inputs.version && !steps.extract_version_from_pr_title.outputs.version }}
         uses: reecetech/version-increment@2023.9.3
         with:
           scheme: semver
