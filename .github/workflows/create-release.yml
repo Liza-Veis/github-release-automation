@@ -42,8 +42,9 @@ jobs:
           if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
             VERSION="${BASH_REMATCH[0]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
+            echo "Release version: ${VERSION}"
           else
-            echo "No version (x.y.z) found in the PR title."
+            echo "No release version (x.y.z) found."
           fi
 
       - name: Determine incremented release version
@@ -62,6 +63,3 @@ jobs:
             steps.extract-version-from-pr-title.outputs.version ||
             steps.determine-incremented-release-version.outputs.version }}
           generate_release_notes: true
-
-      - name: Get color
-        run: echo "The selected color is ${{ steps.extract-version-from-pr-title.outputs.version }}"
