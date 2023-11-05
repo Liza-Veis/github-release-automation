@@ -38,7 +38,7 @@ jobs:
           pr_title="${{ github.event.pull_request.title }}"
           if echo "$pr_title" | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+"; then
             version="${BASH_REMATCH}"
-            echo "version=${version}" >> $GITHUB_OUTPUT
+            echo "version=$version" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Determine incremented release version
