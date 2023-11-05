@@ -41,7 +41,7 @@ jobs:
             version="${BASH_REMATCH}"
             echo "version=$version" >> $GITHUB_OUTPUT
           fi
-          echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+          echo "SELECTED_COLOR=$version" >> "$GITHUB_OUTPUT"
 
       - name: Determine incremented release version
         id: determine-incremented-release-version
