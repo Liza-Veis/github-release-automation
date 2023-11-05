@@ -40,6 +40,9 @@ jobs:
             version="${BASH_REMATCH}"
             echo "version=$version" >> $GITHUB_OUTPUT
           fi
+          echo ${{ steps.extract_version_from_pr_title.outputs.version }}
+          echo "::set-output name=version::$version"
+          echo ${{ steps.extract_version_from_pr_title.outputs.version }}
 
       - name: Determine incremented release version
         id: determine_incremented_release_version
@@ -57,5 +60,3 @@ jobs:
             steps.extract_version_from_pr_title.outputs.version ||
             steps.determine_incremented_release_version.outputs.version }}
           generate_release_notes: true
-
-        run: echo ${{ steps.extract_version_from_pr_title.outputs.version }}
