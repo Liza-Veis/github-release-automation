@@ -33,6 +33,7 @@ jobs:
 
       - name: Extract release version from Pull Request title
         id: extract-version-from-pr-title
+        shell: bash
         if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
         run: |
           pr_title="${{ github.event.pull_request.title }}"
