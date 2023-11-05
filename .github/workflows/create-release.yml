@@ -39,10 +39,8 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           VERSION_REGEX="\d+\.\d+\.\d+"
 
-          if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
-            VERSION="${BASH_REMATCH[0]}"
-            echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          fi
+          VERSION="${BASH_REMATCH[0]}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Determine incremented release version
         id: determine-incremented-release-version
