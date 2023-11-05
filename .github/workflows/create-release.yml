@@ -77,6 +77,5 @@ jobs:
           RELEASE_VERSION="${{ steps.determine-target-release-version.outputs.version }}"
           RELEASE_URL="${{ steps.create-release.outputs.url }}"
 
-          echo "### Release Created :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "Version: ${RELEASE_VERSION}" >> $GITHUB_STEP_SUMMARY
-          echo "[View Release](${RELEASE_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "### [Release ${RELEASE_VERSION} :rocket:](${RELEASE_URL})" >> $GITHUB_STEP_SUMMARY
+
