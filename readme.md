@@ -3,7 +3,7 @@
 This GitHub Actions workflow automates the process of creating releases in your GitHub repository. It can be triggered by two types of events: manual triggering using `workflow_dispatch` and closed pull requests targeting the `production` branch. The workflow provides different behaviors based on the trigger event.
 
 ⚠️ **Note**: This workflow is not triggered by direct pushes to the target branch but is designed for creating releases based on closed pull requests and manual workflow triggers.
-
+test change
 ## Triggered by Workflow
 
 If the workflow is manually triggered using `workflow_dispatch`, it offers the following options:
