@@ -4,8 +4,6 @@ This GitHub Actions workflow automates the process of creating releases in your 
 
 ⚠️ **Note**: This workflow is not triggered by direct pushes to the target branch but is designed for creating releases based on closed pull requests and manual workflow triggers.
 
-testchange
-
 ## Triggered by Workflow
 
 If the workflow is manually triggered using `workflow_dispatch`, it offers the following options:
