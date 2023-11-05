@@ -39,7 +39,12 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           VERSION_REGEX="(\d+\.\d+\.\d+)"
 
-          if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
+          MATCH_RESULT=$( [[ $PR_TITLE =~ $VERSION_REGEX ]]; echo $? )
+
+          # Echo the result
+          echo "Match Result: $MATCH_RESULT"
+
+          if [[ MATCH_RESULT -eq 0 ]]; then
             VERSION="${BASH_REMATCH[0]}"
             echo "version=${VERSION}" >> $GITHUB_OUTPUT
           else
