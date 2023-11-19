@@ -41,7 +41,7 @@ jobs:
 
       - name: Extract release version from Pull Request title
         id: extract-version-from-pr-title
-        if: ${{ steps.get-merged-pr.outputs.pr_found == "true" }}
+        if: ${{ steps.get-merged-pr.outputs.pr_found == 'true' }}
         run: |
           PR_TITLE="${{ steps.get-merged-pr.outputs.pr_title }}"
           VERSION_REGEX="[0-9]+\.[0-9]+\.[0-9]+"
