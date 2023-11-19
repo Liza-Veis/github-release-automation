@@ -1,11 +1,9 @@
 name: Create Release
 
 on:
-  pull_request:
+  push:
     branches:
       - production
-    types:
-      - closed
   workflow_dispatch:
     inputs:
       increment_type:
@@ -30,17 +28,22 @@ jobs:
 
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Get merged Pull Request
+        id: get-merged-pr
+        if: ${{ !github.event.inputs.version }}
+        uses: 8BitJonny/gh-get-current-pr@2.2.0
+
       - name: Extract release version from Pull Request title
         id: extract-version-from-pr-title
-        shell: bash
-        if: ${{ !github.event.inputs.version && github.event.pull_request.merged }}
+        if: ${{ steps.get-merged-pr.outputs.pr_found }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_TITLE="${{ steps.get-merged-pr.outputs.pr_title }}"
           VERSION_REGEX="[0-9]+\.[0-9]+\.[0-9]+"
 
           if [[ $PR_TITLE =~ $VERSION_REGEX ]]; then
@@ -70,16 +73,11 @@ jobs:
 
       - name: Create release
         id: create-release
-        uses: softprops/action-gh-release@v1
+        uses: google-github-actions/release-please-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ steps.determine-target-release-version.outputs.version }}
-          generate_release_notes: true
-
-      - name: Add job summary
-        run: |
-          RELEASE_VERSION="${{ steps.determine-target-release-version.outputs.version }}"
-          RELEASE_URL="${{ steps.create-release.outputs.url }}"
-
-          echo "### [Release ${RELEASE_VERSION} :rocket:](${RELEASE_URL})" >> $GITHUB_STEP_SUMMARY
-
+          release-type: node
+          package-name: <package-name>
+          default-branch: production
+          include-v-in-tag: false
+          release-as: ${{ steps.determine-target-release-version.outputs.version }}
