@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.8](https://github.com/Liza-Veis/github-release-automation/compare/1.4.7...1.4.8) (2023-11-19)
+
+
+### Reverts
+
+* fail action if release was not created ([f3a9c86](https://github.com/Liza-Veis/github-release-automation/commit/f3a9c861d86345657c210d664b073a6771b54fbc))
+
 ## [1.4.7](https://github.com/Liza-Veis/github-release-automation/compare/1.4.6...1.4.7) (2023-11-19)
 
 
