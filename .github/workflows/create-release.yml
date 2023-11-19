@@ -81,11 +81,3 @@ jobs:
           default-branch: production
           include-v-in-tag: false
           release-as: ${{ steps.determine-target-release-version.outputs.version }}
-
-      - name: Check if release was created
-        run: |
-          IS_RELEASE_CREATED="${{ steps.create-release.outputs.releases_created }}"
-          if [ !$IS_RELEASE_CREATED ]; then
-            echo "Relese was not created."
-            exit 1
-          fi
