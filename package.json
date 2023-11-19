@@ -1,0 +1,22 @@
+{
+  "name": "github-release-automation",
+  "version": "0.0.1",
+  "private": "true",
+  "engines": {
+    "node": "18.x.x",
+    "npm": "9.x.x"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@commitlint/cli": "17.7.1",
+    "@commitlint/config-angular": "18.4.2",
+    "@commitlint/config-conventional": "18.4.2",
+    "danger": "11.2.8",
+    "lint-staged": "13.2.3",
+    "simple-git-hooks": "2.9.0",
+    "typescript": "5.1.6"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "npx commitlint --edit $1"
+  }
+}
