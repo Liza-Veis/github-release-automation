@@ -1,5 +1,7 @@
 import { danger, fail, type GitHubPRDSL as LibraryGitHubDSL } from 'danger';
 
+import { ProjectPrefix } from './project.config';
+
 type GitHubPRDSL = LibraryGitHubDSL & {
   milestone: Record<string, unknown> | null;
   labels: unknown[];
@@ -24,14 +26,11 @@ type DangerConfig = {
   };
 };
 
-const BranchPrefix = {
-  TASK: 'task',
-  FIX: 'fix',
-} as const;
+const BRANCH_PREFIXES = ['task', 'fix'];
 
 const config: DangerConfig = {
   TITLE: {
-    PATTERN: /^(\w*)(?:\((.*)\))?!?: (.*)$/,
+    PATTERN: /^(\w*)(?:\((.*)\))?!?: (.+)$/,
   },
   ASSIGNEES: {
     IS_REQUIRED: true,
@@ -44,9 +43,9 @@ const config: DangerConfig = {
   },
   BRANCH: {
     PATTERN: new RegExp(
-      `^((${Object.values(BranchPrefix).join('|')})/(${
-        ProjectPrefix.APP
-      })-[0-9]{1,6})-[a-zA-Z0-9-]+$|(${ProjectPrefix.ENVIRONMENTS.join('|')})$`,
+      `^((${BRANCH_PREFIXES.join('|')})/(${
+        ProjectPrefix.APPS
+      })-\d{1,6})-[\w-]{1,65}$`,
     ),
   },
 };
