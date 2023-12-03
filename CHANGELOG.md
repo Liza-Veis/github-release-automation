@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/Liza-Veis/github-release-automation/compare/1.4.8...1.5.0) (2023-12-03)
+
+
+### Documentation
+
+* change configs ga-1 ([1e76e3a](https://github.com/Liza-Veis/github-release-automation/commit/1e76e3aed6be6c4409956d6127446ce28192e537))
+
 ## [1.4.8](https://github.com/Liza-Veis/github-release-automation/compare/1.4.7...1.4.8) (2023-11-19)
 
 
