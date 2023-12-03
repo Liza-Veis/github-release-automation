@@ -80,4 +80,5 @@ jobs:
           default-branch: ${{ github.ref_name }}
           include-v-in-tag: false
           pull-request-title-pattern: "chore: release-${version}"
+          changelog-types: '{"type": "chore", "section": "Documentation", "hidden": false}'
           release-as: ${{ steps.determine-target-release-version.outputs.version }}
