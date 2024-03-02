@@ -8,7 +8,7 @@ This workflow automatically creates a release whenever changes are pushed to the
 
 This option is suitable for open source and personal projects where you don't need a specific version for the release.
 
-To use this workflow, copy `.github/workflows/create-release-automatic.yml` and `release-please-config.json` to your repository following the same path.
+To use this workflow, copy `.github/workflows/create-release-automatic.yml`, `release-please-config.json` and `.release-please-manifest.json` to your repository following the same path.
 
 ## Workflow 2: Manual Release Creation
 
@@ -16,4 +16,4 @@ This workflow is triggered manually through workflow dispatch. It allows you to 
 
 This option is suitable for commercial projects where you need to specify a specific version for the release.
 
-To use this workflow, copy `.github/workflows/create-release-manual.yml` and `.release-please-manifest.json` to your repository following the same path.
+To use this workflow, copy `.github/workflows/create-release-manual.yml`, `.release-please-manifest.json` and `.release-please-manifest.json` to your repository following the same path.
